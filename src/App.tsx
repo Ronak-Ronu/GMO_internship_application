@@ -1,7 +1,7 @@
 import './App.css'
+import { Routes,Route } from 'react-router-dom'
 import FormPage from './Components/FormPage'
 import SecondPage from './Components/SecondPage'
-import { Routes,Route, Form } from 'react-router-dom'
 
 function App() {
 

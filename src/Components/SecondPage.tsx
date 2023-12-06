@@ -1,11 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import  { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
-import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
-import { Checkbox, FormControlLabel, FormGroup } from '@mui/material';
+import { DataGrid } from '@mui/x-data-grid';
+import { Checkbox, FormControlLabel } from '@mui/material';
 import { pink } from '@mui/material/colors';
 
 
-const columns: GridColDef[] = [
+
+
+
+const columns= [
   
   { field: 'id', headerName: 'ID', width: 90 },
   {
@@ -41,7 +44,8 @@ export default function SecondPage() {
 const [name,setName]= useState('');
 const [data,setData]=useState('');
   const getData = ()=>{
-    const data = JSON.parse(localStorage.getItem('formData'));
+    
+    const data = JSON.parse(JSON.stringify(localStorage.getItem('formData')));
     let firstName = data.firstName;
     setName(firstName);
   }
@@ -50,6 +54,8 @@ const [data,setData]=useState('');
     window.location.href='/'
     setName('');
   }
+  
+
 
   const logout = ()=>{
     window.location.href = '/'
@@ -59,6 +65,7 @@ const [data,setData]=useState('');
     const data = await fetch("https://jsonplaceholder.typicode.com/posts");
     data.json().then((data)=>{setData(data);console.log(data)});  
   }
+
 
   useEffect(()=>{
     getData();
@@ -85,7 +92,7 @@ const [data,setData]=useState('');
         initialState={{
           pagination: {
             paginationModel: {
-              pageSize: 5,
+              pageSize: 10,
             },
           },
         }}
@@ -135,8 +142,7 @@ function Component2(){
             ]
           }
   ];
-  const handleChange = (event) => {
-
+  const handleChange = (event: { target: { checked: boolean; }; }) => {
       setChecked([event.target.checked, event.target.checked]);
 
       
@@ -166,9 +172,9 @@ function Component2(){
              <FormControlLabel value={subDepartment}
                                control={<Checkbox 
                                          checked = {checked[0]}
-                                         onChange={()=>{
-                                        setChecked(checked[1]);
-                                      }}
+                                      //    onChange={()=>{
+                                      //   setChecked(checked[1],checked[0]);
+                                      // }}
                                     
                                      sx={{
                                       color: pink[800],

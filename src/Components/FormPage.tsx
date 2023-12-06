@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import  { useState } from 'react';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
-import { Link, json } from 'react-router-dom';
 
 
 
@@ -13,10 +12,11 @@ export default function FormPage() {
     phoneNumber: '',
     email: '',
   });
-  const Login = (event)=>{
+  
+  const Login = (event: { preventDefault: () => void; })=>{
     event.preventDefault();
 
-    let name = JSON.parse(localStorage.getItem('formData')).firstName;
+    let name = JSON.parse(JSON.stringify(localStorage.getItem('formData'))).firstName;
     if (formData.firstName !== name ) {
       alert("user doesnt exist, You should register")
     }
@@ -25,16 +25,16 @@ export default function FormPage() {
     }
   }
 
-  const handleSubmit = (event) => {
+  const handleSubmit = (event: { preventDefault: () => void; }) => {
     event.preventDefault();
-    let name = JSON.parse(localStorage.getItem('formData')).firstName;
-    
+    // localStorage.setItem('formData', JSON.stringify(formData));
+
+    let name = JSON.parse(JSON.stringify(localStorage.getItem('formData'))).firstName;
     
     if (formData.firstName === name) {
       alert("user already exist you should login");
     }
     else{
-      
       localStorage.setItem('formData', JSON.stringify(formData));
       window.location.href = '/secondpage';
     }
@@ -44,7 +44,7 @@ export default function FormPage() {
   
 
   // Event handler for input changes
-  const handleInputChange = (event) => {
+  const handleInputChange = (event: { target: { name: any; value: any; }; }) => {
     const { name, value } = event.target;
     setFormData({
       ...formData,
